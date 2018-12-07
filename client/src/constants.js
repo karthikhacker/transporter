@@ -1,0 +1,14 @@
+export const GET_USERS = 'GET_USERS';
+export const GET_USER = 'GET_USER';
+export const USER_LOADING = 'USER_LOADING';
+export const GET_ERRORS = 'GET_ERRORS';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const ADD_USER = 'ADD_USER';
+export const UPDATE_USER = 'UPDATE_USER';
+export const DELETE_USER = 'DELETE_USER';
+export const GET_CONSUMERS = 'GET_CONSUMERS';
+export const CONSUMER_LOADING = 'CONSUMER_LOADING';
+export const GET_CONSUMER_ERROR = 'GET_CONSUMER_ERROR';
+export const ADD_CONSUMER = 'ADD_CONSUMER';
+export const GET_SEARCH_CONSUMER = 'GET_SEARCH_CONSUMER';

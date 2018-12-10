@@ -1,4 +1,4 @@
 module.exports = {
-  'db' : 'mongodb://localhost:27017/transporter',
+  'db' : 'mongodb://karthikhacker:hacker24@ds129484.mlab.com:29484/transporter',
   'secret' : 'mysecret'
 }

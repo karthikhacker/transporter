@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { getConsumers } from '../actions';
@@ -7,28 +8,31 @@ import { Link } from 'react-router-dom';
  class ConsumerList extends React.Component {
    state = {
       consumerArray : [],
-      filterArray : []
+      filterText : '',
+      visible : 5
    }
    componentDidMount(){
      this.props.getConsumers();
 
    }
-   handleFilter = (e) => {
-     const filterSearch = this.state.consumerArray.filter((consumer) => {
-       return consumer.name.indexOf(this.filterText.value) !== -1
-     });
-     this.setState({ filterArray : filterSearch })
-   }
+
    componentWillReceiveProps(nextProps){
      if(nextProps.consumer.consumer){
        this.setState({ consumerArray : nextProps.consumer.consumer })
      }
-     if(nextProps.consumer.consumer){
-       this.setState({ filterArray : nextProps.consumer.consumer })
-     }
+
+   }
+   handleFilter = () => {
+     this.setState({ filterText : this.myValue.value })
+   }
+   loadMore = () => {
+     this.setState({ visible : this.state.visible + 5 });
    }
   render() {
-    console.log(this.state.consumerArray);
+    console.log(this.state.filterText);
+    //console.log("filter array",this.state.filterArray);
+    //console.log(this.props.consumer.consumer);
+    const { consumerArray } = this.state;
     const { consumer, loading } = this.props.consumer;
     const renderTable = (
       <table className="table">
@@ -45,7 +49,12 @@ import { Link } from 'react-router-dom';
         </thead>
         <tbody>
           {
-              this.state.filterArray.map((consumer) => (
+              consumerArray.length > 0 ?  consumerArray
+              .filter(consumer => {
+                return consumer.name.toLowerCase().indexOf(this.state.filterText) >= 0;
+              })
+              .slice(0,this.state.visible)
+              .map((consumer) => (
                <tr key={consumer._id}>
                  <td>{consumer.name}</td>
                  <td>{consumer.sex}</td>
@@ -65,7 +74,7 @@ import { Link } from 'react-router-dom';
                    <button className="btn btn-danger btn-sm action-btn">Danger</button>
                  </td>
                </tr>
-             ))
+             )) : null
           }
         </tbody>
       </table>
@@ -88,9 +97,19 @@ import { Link } from 'react-router-dom';
            </div>
            <div className="panel-body">
              <div className="form-group">
-              <input className="form-control" ref={node => (this.filterText = node)} onChange={this.handleFilter} placeholder="Search consumers"/>
+              <input className="form-control" ref={(value) => {this.myValue = value }} onChange={this.handleFilter} placeholder="Search consumers"/>
+             </div>
+             <div className="form-group">
+               <div className="checkbox">
+                 <label>
+                   <input type="checkbox" value={this.state.male}  onChange={this.handleMale}/>
+                   M
+                 </label>
+               </div>
+               {this.state.consumerArray.length} consumers found
              </div>
              {consumer.length > 0 ? renderTable : <p className="text-center">No consumers</p>}
+             {this.state.visible < consumerArray.length && <button onClick={this.loadMore} className="btn btn-success btn-sm text-center">Load more</button>}
            </div>
          </div>
        )

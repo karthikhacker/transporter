@@ -5,3 +5,8 @@
 .label{
   margin: 2px;
 }
+
+.btn-pagination{
+  margin: 2px;
+  border-radius: 100%;
+}

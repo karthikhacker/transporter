@@ -1,4 +1,4 @@
-import { ADD_CONSUMER, GET_CONSUMERS, CONSUMER_LOADING, GET_SEARCH_CONSUMER, GET_CONSUMER_ERROR, AUTH_ERROR, GET_USERS, ADD_USER, GET_ERRORS, UPDATE_USER, GET_USER, USER_LOADING, SET_CURRENT_USER, DELETE_USER } from '../constants';
+import { ADD_CONSUMER, GET_CONSUMERS, GET_CONSUMER, UPDATE_CONSUMER, DELETE_CONSUMER, CONSUMER_LOADING, GET_SEARCH_CONSUMER, GET_CONSUMER_ERROR, AUTH_ERROR, GET_USERS, ADD_USER, GET_ERRORS, UPDATE_USER, GET_USER, USER_LOADING, SET_CURRENT_USER, DELETE_USER } from '../constants';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from '../utils/setAuthToken';
@@ -174,6 +174,22 @@ export const getConsumers = () => {
     )
   }
 }
+//GET consumer
+export const  getConsumer = (id) => {
+  return dispatch => {
+    axios.get(`/api/consumer/${id}`).then(res =>
+       dispatch({
+         type : GET_CONSUMER,
+         payload : res.data
+       })
+    ).catch(error =>
+       dispatch({
+         type : GET_CONSUMER_ERROR,
+         payload : error.response.data
+       })
+    )
+  }
+}
 //Add consumer
 export const addConsumer = (consumerData) => {
   return dispatch => {
@@ -192,6 +208,41 @@ export const addConsumer = (consumerData) => {
     )
   }
 }
+//update consumer
+export const updateConsumer = (consumerData,id) => {
+  return dispatch => {
+    dispatch(consumerLoading());
+    axios.put(`/api/updateconsumer/${id}`,consumerData).then(res =>
+       dispatch({
+         type : UPDATE_CONSUMER,
+         payload : res.data
+       })
+    ).catch(error =>
+       dispatch({
+         type : GET_CONSUMER_ERROR,
+         payload : error.response.data
+       })
+    )
+  }
+}
+//Delete consumer
+export const deleteConsumer = (id) => {
+  return dispatch => {
+    axios.delete(`/api/deleteconsumer/${id}`).then(res =>
+      dispatch({
+        type : DELETE_CONSUMER,
+        payload : id
+      })
+    ).catch(error =>
+       dispatch({
+         type : GET_CONSUMER_ERROR,
+         payload : error.respobnse.data
+       })
+    )
+  }
+}
+
+
 // consumer loading
 export const consumerLoading = () => {
   return{

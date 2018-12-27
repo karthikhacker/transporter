@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { connect } from 'react-redux';
-import { getConsumers } from '../actions';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+import { getConsumers, deleteConsumer } from '../actions';
 import Spinner from './Spinner';
 import { Link } from 'react-router-dom';
 
@@ -9,13 +9,15 @@ import { Link } from 'react-router-dom';
    state = {
       consumerArray : [],
       filterText : '',
-      visible : 5
+      visible : 5,
+      male : false
    }
    componentDidMount(){
      this.props.getConsumers();
-
    }
-
+   handleMale = (e) => {
+     this.setState({ male : !this.state.male })
+   }
    componentWillReceiveProps(nextProps){
      if(nextProps.consumer.consumer){
        this.setState({ consumerArray : nextProps.consumer.consumer })
@@ -28,14 +30,18 @@ import { Link } from 'react-router-dom';
    loadMore = () => {
      this.setState({ visible : this.state.visible + 5 });
    }
+   onDelete = (id) => {
+     this.props.deleteConsumer(id);
+   }
+
   render() {
-    console.log(this.state.filterText);
+    console.log(this.state.consumerArray);
     //console.log("filter array",this.state.filterArray);
     //console.log(this.props.consumer.consumer);
     const { consumerArray } = this.state;
     const { consumer, loading } = this.props.consumer;
     const renderTable = (
-      <table className="table">
+      <table className="table" id="table-to-xls">
         <thead>
           <tr>
             <th>Name</th>
@@ -70,8 +76,8 @@ import { Link } from 'react-router-dom';
                  </td>
                  <td>{consumer.notes}</td>
                  <td>
-                   <button className="btn btn-success btn-sm action-btn">Edit</button>
-                   <button className="btn btn-danger btn-sm action-btn">Danger</button>
+                   <Link to={`/editconsumer/${consumer._id}`} className="btn btn-success btn-sm action-btn">Edit</Link>
+                   <button onClick={() =>  this.onDelete(consumer._id)} className="btn btn-danger btn-sm action-btn">Delete</button>
                  </td>
                </tr>
              )) : null
@@ -92,6 +98,13 @@ import { Link } from 'react-router-dom';
                </div>
                <div className="col-sm-6">
                  <Link to="/addconsumer" className="btn btn-success btn-sm pull-right">Add cosnumer</Link>
+                 <ReactHTMLTableToExcel
+                    id="test-table-xls-button"
+                    className="btn btn-info btn-sm pull-right"
+                    table="table-to-xls"
+                    filename="tablexls"
+                    sheet="tablexls"
+                    buttonText="Download as XLS"/>
                </div>
              </div>
            </div>
@@ -100,13 +113,7 @@ import { Link } from 'react-router-dom';
               <input className="form-control" ref={(value) => {this.myValue = value }} onChange={this.handleFilter} placeholder="Search consumers"/>
              </div>
              <div className="form-group">
-               <div className="checkbox">
-                 <label>
-                   <input type="checkbox" value={this.state.male}  onChange={this.handleMale}/>
-                   M
-                 </label>
-               </div>
-               {this.state.consumerArray.length} consumers found
+               No of consumers - {this.state.consumerArray.length}
              </div>
              {consumer.length > 0 ? renderTable : <p className="text-center">No consumers</p>}
              {this.state.visible < consumerArray.length && <button onClick={this.loadMore} className="btn btn-success btn-sm text-center">Load more</button>}
@@ -131,4 +138,4 @@ const mapStateToProps = (state) => {
     consumer : state.consumer
   }
 }
-export default connect(mapStateToProps,{getConsumers})(ConsumerList);
+export default connect(mapStateToProps,{getConsumers,deleteConsumer})(ConsumerList);

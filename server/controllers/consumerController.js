@@ -1,4 +1,6 @@
  const Consumer = require('../models/consumers');
+ const csv = require('csv-express');
+ const filename = 'consumers.csv';
 
 // add consumers
 exports.addConsumer = (req,res) => {
@@ -42,12 +44,6 @@ exports.getConsumers = (req,res) => {
     }
   })
 }
-//search consumer
-exports.searchConsumer = (req,res) => {
-  Consumer.find({name : req.params.name}).then(consumer => {
-     res.status(200).json(consumer);
-  })
-}
 // Get consumer
 exports.getConsumer = (req,res) => {
   Consumer.findById({_id : req.params.id}).then(consumer => {
@@ -77,7 +73,7 @@ exports.updateConsumer = (req,res) => {
     if(err){
       res.status(400).json(err);
     }else{
-      res.status(200).json({ success : false, msg : 'consumer updated!.'});
+      res.status(200).json({ success : true, msg : 'consumer updated!.'});
     }
   })
 }

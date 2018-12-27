@@ -8,6 +8,7 @@ import Home from './components/Home';
 import AddUser from './components/AddUser';
 import UpdateUser from './components/UpdateUser';
 import ConsumerList from './components/ConsumerList';
+import EditConsumer from './components/EditConsumer';
 import AddConsumer from './components/AddConsumer';
 import { Provider } from 'react-redux';
 import jwtDecode from 'jwt-decode';
@@ -40,6 +41,7 @@ class App extends Component {
              <PrivateRoute exact path="/update/:id" component={UpdateUser}/>
              <PrivateRoute exact path="/consumers" component={ConsumerList}/>
              <PrivateRoute exact path="/addconsumer" component={AddConsumer}/>
+             <PrivateRoute exact path="/editconsumer/:id" component={EditConsumer}/>
              <Route exact path="/login" component={Login}/>
            </Switch>
          </section>

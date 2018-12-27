@@ -14,7 +14,6 @@ router.put('/update/:id',passport.authenticate('jwt',{session : false}),AdminMid
 router.delete('/delete/:id',passport.authenticate('jwt',{session : false}),AdminMiddleware,UserController.deleteUser);
 router.post('/addconsumer',passport.authenticate('jwt',{session : false }),ConsumerController.addConsumer);
 router.get('/consumers',passport.authenticate('jwt',{session : false}),ConsumerController.getConsumers);
-router.get('/searchconsumer/:name',passport.authenticate('jwt',{session : false}),ConsumerController.searchConsumer);
 router.get('/consumer/:id',passport.authenticate('jwt',{session : false}),ConsumerController.getConsumer);
 router.put('/updateconsumer/:id',passport.authenticate('jwt',{session : false}),ConsumerController.updateConsumer);
 router.delete('/deleteconsumer/:id',passport.authenticate('jwt',{session : false}),ConsumerController.deleteConsumer);

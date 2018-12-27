@@ -1,4 +1,4 @@
-import { ADD_CONSUMER, GET_CONSUMERS, CONSUMER_LOADING, GET_SEARCH_CONSUMER, GET_CONSUMER_ERROR } from '../constants';
+import { ADD_CONSUMER, GET_CONSUMERS, GET_CONSUMER, UPDATE_CONSUMER, DELETE_CONSUMER, CONSUMER_LOADING, GET_SEARCH_CONSUMER, GET_CONSUMER_ERROR } from '../constants';
 
 const initialState = {
   consumer : [],
@@ -20,12 +20,30 @@ export default (state = initialState,action) => {
           error : {},
           loading: false
         }
+      case GET_CONSUMER:
+        return{
+          ...state,
+          consumer : action.payload,
+          error : {}
+        }
       case ADD_CONSUMER:
        return{
          ...state,
          consumer : action.payload,
          error : {},
          loading : false
+       }
+      case UPDATE_CONSUMER:
+       return{
+         ...state,
+         consumer : action.payload,
+         error : {},
+         loading : false
+       }
+      case DELETE_CONSUMER:
+       return{
+         ...state,
+         consumer : state.consumer.filter(consumer => consumer._id !== action.payload)
        }
       case GET_SEARCH_CONSUMER:
         return{

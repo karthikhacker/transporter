@@ -120,6 +120,7 @@ class AddConsumer extends React.Component {
     }
   }
   render() {
+    console.log(this.state.lng);
     console.log(this.props.consumer);
 
     return (

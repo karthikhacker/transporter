@@ -16,6 +16,10 @@ const ConsumerSchema = new Schema({
     type : String,
     required : 'Address is required',
   },
+  position : {
+    lat : Number,
+    lng : Number
+  },
   phone : {
     type : String,
     required : 'Phone no is required',

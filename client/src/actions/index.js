@@ -30,8 +30,8 @@ export const getUsers = () => {
         type : GET_USERS,
         payload : res.data
       })
-    ).
-    catch(error =>
+    )
+    .catch(error =>
       disptach({
         type : GET_ERRORS,
         payload : error.response.data
@@ -46,8 +46,8 @@ export const searchConsumer = (keyword) => {
         type :  GET_SEARCH_CONSUMER,
         payload : res.data
       })
-    ).
-    catch(error =>
+    )
+    .catch(error =>
       dispatch({
         type : GET_CONSUMER_ERROR,
         payload : error.response.data
@@ -62,8 +62,8 @@ export const getUser = (id) => {
         type : GET_USER,
         payload : res.data
       })
-    ).
-    catch(error =>
+    )
+    .catch(error =>
       dispatch({
         type : GET_ERRORS,
         patload : error.response.data
@@ -87,8 +87,8 @@ export const userLogin = (userData,history) => {
       const jwtDecoded = jwtDecode(token);
       //set current user
       dispatch(setCurrentUser(jwtDecoded));
-    }).
-    catch(error =>
+    })
+    .catch(error =>
       dispatch({
         type : AUTH_ERROR,
         payload : error.response.data
@@ -123,8 +123,8 @@ export const updateUser = (userData,id) => {
          type : UPDATE_USER,
          payload : res.data
       })
-    ).
-    catch(error =>
+    )
+    .catch(error =>
       dispatch({
         type : GET_ERRORS,
         payload : error.response.data
@@ -165,8 +165,8 @@ export const getConsumers = () => {
         type : GET_CONSUMERS,
         payload : res.data
       })
-    ).
-    catch(error =>
+    )
+    .catch(error =>
       dispatch({
         type : GET_CONSUMER_ERROR,
         payload : error.response.data
@@ -199,8 +199,8 @@ export const addConsumer = (consumerData) => {
         type : ADD_CONSUMER,
         payload : res.data
       })
-    ).
-    catch(error =>
+    )
+    .catch(error =>
       dispatch({
         type : GET_CONSUMER_ERROR,
         payload : error.response.data

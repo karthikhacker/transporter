@@ -84,7 +84,7 @@ exports.editUser = (req,res) => {
       res.status(401).json(err);
     }else{
       res.status(200).json({ success : true, msg : 'User updated!.'});
-    }
+    }    
   })
 }
 

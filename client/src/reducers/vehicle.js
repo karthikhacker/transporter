@@ -1,4 +1,4 @@
-import { ADD_VEHICLE, GET_VEHICLE, GET_VEHICLES, GET_VEHICLE_ERROR, VEHICLE_LOADING } from '../constants';
+import { ADD_VEHICLE, GET_VEHICLE, GET_VEHICLES, UPDATE_VEHICLE, DELETE_VEHICLE,  GET_VEHICLE_ERROR, VEHICLE_LOADING } from '../constants';
 
 const  initialState = {
    vehicle : [],
@@ -34,6 +34,18 @@ export default (state = initialState,action) => {
          loading: false,
          error : {}
        }
+      case UPDATE_VEHICLE:
+       return{
+         ...state,
+         vehicle : action.payload,
+         error : {},
+         loading : false
+       }
+      case DELETE_VEHICLE:
+        return{
+          ...state,
+          vehicle : state.vehicle.filter(vehicle => vehicle._id !== action.payload)
+        }
       case GET_VEHICLE_ERROR:
        return{
          ...state,

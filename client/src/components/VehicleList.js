@@ -1,13 +1,40 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getVehicles  } from '../actions';
+import { getVehicles, deleteVehicle  } from '../actions';
 import Spinner from './Spinner';
+import Modal from 'react-modal';
+
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
 
 class VehicleList extends React.Component{
+  state = {
+    modalIsOpen : false
+  }
   componentDidMount(){
     this.props.getVehicles();
   }
+  handleDelete = (id) => {
+    console.log(id);
+    this.props.deleteVehicle(id);
+    this.closeModal();
+  }
+  modelOpen = () => {
+    this.setState({ modalIsOpen : true })
+  }
+  closeModal = () => {
+    this.setState({ modalIsOpen : false })
+  }
+
   render(){
     console.log(this.props.vehicle);
     const { vehicle, loading } = this.props.vehicle;
@@ -33,7 +60,19 @@ class VehicleList extends React.Component{
                 <td>
                   <button className="btn btn-default btn-xs">config route</button>
                   <Link to={`/editvehicle/${vehicle._id}`} className="btn btn-default btn-xs">Edit</Link>
-                  <button className="btn btn-danger btn-xs">Delete</button>
+                  <button onClick={this.modelOpen} className="btn btn-danger btn-xs">Delete</button>
+                  <Modal
+                     isOpen={this.state.modalIsOpen}
+                     onAfterOpen={this.afterOpenModal}
+                     onRequestClose={this.closeModal}
+                     style={customStyles}
+                     contentLabel="Example Modal"
+                     ariaHideApp = {false}
+                   >
+                     <h2>Are you sure you want to delete ? </h2>
+                   <button onClick={this.closeModal} className="btn btn-success btn-sm">No</button>
+                   <button className="btn btn-danger btn-sm" onClick={ () => this.handleDelete(vehicle._id)}>delete</button>
+                   </Modal>
                 </td>
               </tr>
             )) : null
@@ -79,4 +118,4 @@ const mapStateToProps = (state) => {
     vehicle : state.vehicle
   }
 }
-export default connect(mapStateToProps,{getVehicles})(VehicleList);
+export default connect(mapStateToProps,{getVehicles, deleteVehicle})(VehicleList);

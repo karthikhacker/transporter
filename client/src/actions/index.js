@@ -1,4 +1,4 @@
-import { ADD_VEHICLE, GET_VEHICLE, GET_VEHICLES,VEHICLE_LOADING, GET_VEHICLE_ERROR, ADD_CONSUMER, GET_CONSUMERS, GET_CONSUMER, UPDATE_CONSUMER, DELETE_CONSUMER, CONSUMER_LOADING, GET_SEARCH_CONSUMER, GET_CONSUMER_ERROR, AUTH_ERROR, GET_USERS, ADD_USER, GET_ERRORS, UPDATE_USER, GET_USER, USER_LOADING, SET_CURRENT_USER, DELETE_USER } from '../constants';
+import { ADD_VEHICLE, GET_VEHICLE, GET_VEHICLES, UPDATE_VEHICLE, DELETE_VEHICLE, VEHICLE_LOADING, GET_VEHICLE_ERROR, ADD_CONSUMER, GET_CONSUMERS, GET_CONSUMER, UPDATE_CONSUMER, DELETE_CONSUMER, CONSUMER_LOADING, GET_SEARCH_CONSUMER, GET_CONSUMER_ERROR, AUTH_ERROR, GET_USERS, ADD_USER, GET_ERRORS, UPDATE_USER, GET_USER, USER_LOADING, SET_CURRENT_USER, DELETE_USER } from '../constants';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from '../utils/setAuthToken';
@@ -301,6 +301,47 @@ export const getVehicles = () => {
          type : GET_VEHICLE_ERROR,
          payload : error.response.data
        })
+    )
+  }
+}
+//Update vehicle
+export const updateVehicle = (vehicleData,id) => {
+  return dispatch => {
+    dispatch(getVehicleLoading());
+    axios.put(`/api/editvehicle/${id}`,vehicleData).then(res =>
+       dispatch({
+         type : UPDATE_VEHICLE,
+         payload : res.data
+       })
+    )
+    .catch(error =>
+       dispatch({
+         type : GET_VEHICLE_ERROR,
+         payload : error.response.data
+       })
+    )
+    .catch(error =>
+       dispatch({
+         type : GET_VEHICLE_ERROR,
+         payload : error.response.data
+       })
+    )
+  }
+}
+//Delete vehicle
+export const deleteVehicle = (id) => {
+  return dispatch => {
+    axios.delete(`/api/deletevehicle/${id}`).then(res =>
+       dispatch({
+         type : DELETE_VEHICLE,
+         payload : id
+       })
+    )
+    .catch(error =>
+      dispatch({
+        type : GET_VEHICLE_ERROR,
+        payload : error.response.data
+      })
     )
   }
 }

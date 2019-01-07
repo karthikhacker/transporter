@@ -29,13 +29,19 @@ exports.getVehicle = (req,res) => {
 }
 //Edit vehicle
 exports.editVehicle = (req,res) => {
-  let data = req.body;
+  let data = {
+    name : req.body.name,
+    seats : req.body.seats,
+    flexSeats : req.body.flexSeats,
+    wheelchairs : req.body.wheelchairs,
+    
+  };
   let id = {_id : req.params.id};
   Vehicle.findOneAndUpdate(id,data,(err) => {
     if(err){
       res.status(400).json(err);
     }else{
-      res.status(200).json({ msg : 'Vehicle updated.'});
+      res.status(200).json({  success : true, msg : 'Vehicle updated.'});
     }
   })
 }

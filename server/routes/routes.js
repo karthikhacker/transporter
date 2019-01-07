@@ -3,6 +3,7 @@ const router = express.Router();
 const UserController = require('../controllers/userController');
 const AdminMiddleware = require('../middleware/adminMiddleware');
 const ConsumerController = require('../controllers/consumerController');
+const VehicleController = require('../controllers/vehicleController');
 const passport = require('passport');
 
 router.post('/adduser',passport.authenticate('jwt',{session : false}),AdminMiddleware,UserController.addUser);
@@ -17,4 +18,9 @@ router.get('/consumers',passport.authenticate('jwt',{session : false}),ConsumerC
 router.get('/consumer/:id',passport.authenticate('jwt',{session : false}),ConsumerController.getConsumer);
 router.put('/updateconsumer/:id',ConsumerController.updateConsumer);
 router.delete('/deleteconsumer/:id',passport.authenticate('jwt',{session : false}),ConsumerController.deleteConsumer);
+router.post('/addvehicle',VehicleController.addVehicle);
+router.get('/vehicles',passport.authenticate('jwt',{session : false }),VehicleController.getVehicles);
+router.get('/vehicle/:id',passport.authenticate('jwt',{session : false}),VehicleController.getVehicle);
+router.put('/editvehicle/:id',passport.authenticate('jwt',{session : false}),VehicleController.editVehicle);
+router.delete('/deletevehicle/:id',passport.authenticate('jwt',{session : false}),VehicleController.deleteVehicle);
 module.exports = router;

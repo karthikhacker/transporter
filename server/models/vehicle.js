@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Consumer = require('./consumer');
+const Consumer = require('./consumers');
 const validator = require('mongoose-unique-validator');
 
 const VehicleSchema = new Schema({
@@ -48,7 +48,7 @@ const VehicleSchema = new Schema({
    }
 });
 
-VehicleSchema.pulgin(validator);
+VehicleSchema.plugin(validator);
 
 const Vehicle = mongoose.model('Vehicle',VehicleSchema);
 module.exports = Vehicle;

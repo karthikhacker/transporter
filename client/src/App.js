@@ -10,6 +10,9 @@ import UpdateUser from './components/UpdateUser';
 import ConsumerList from './components/ConsumerList';
 import EditConsumer from './components/EditConsumer';
 import AddConsumer from './components/AddConsumer';
+import VehicleList from './components/VehicleList';
+import AddVehicle from './components/AddVehicle';
+import EditVehicle from './components/EditVehicle';
 import { Provider } from 'react-redux';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
@@ -42,6 +45,9 @@ class App extends Component {
              <PrivateRoute exact path="/consumers" component={ConsumerList}/>
              <PrivateRoute exact path="/addconsumer" component={AddConsumer}/>
              <PrivateRoute exact path="/editconsumer/:id" component={EditConsumer}/>
+             <PrivateRoute exact path="/vehicles" component={VehicleList}/>
+             <PrivateRoute exact path="/addvehicle" component={AddVehicle}/>
+             <PrivateRoute exact path="/editvehicle/:id" component={EditVehicle}/>
              <Route exact path="/login" component={Login}/>
            </Switch>
          </section>

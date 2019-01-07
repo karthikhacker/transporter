@@ -24,6 +24,7 @@ import { logoutUser } from '../actions';
           <div id="navbar" className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
               <li><Link to="/consumers">Consumers</Link></li>
+              <li><Link to="/vehicles">Vehicles</Link></li>
               { user.role == 'admin' ? <li><Link to="/users">Users</Link></li> : null }
               {user.role == 'admin' ? <li><Link to="/adduser">Add User</Link></li> : null }
             </ul>

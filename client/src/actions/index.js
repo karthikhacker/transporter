@@ -1,4 +1,4 @@
-import { ADD_CONSUMER, GET_CONSUMERS, GET_CONSUMER, UPDATE_CONSUMER, DELETE_CONSUMER, CONSUMER_LOADING, GET_SEARCH_CONSUMER, GET_CONSUMER_ERROR, AUTH_ERROR, GET_USERS, ADD_USER, GET_ERRORS, UPDATE_USER, GET_USER, USER_LOADING, SET_CURRENT_USER, DELETE_USER } from '../constants';
+import { ADD_VEHICLE, GET_VEHICLE, GET_VEHICLES,VEHICLE_LOADING, GET_VEHICLE_ERROR, ADD_CONSUMER, GET_CONSUMERS, GET_CONSUMER, UPDATE_CONSUMER, DELETE_CONSUMER, CONSUMER_LOADING, GET_SEARCH_CONSUMER, GET_CONSUMER_ERROR, AUTH_ERROR, GET_USERS, ADD_USER, GET_ERRORS, UPDATE_USER, GET_USER, USER_LOADING, SET_CURRENT_USER, DELETE_USER } from '../constants';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from '../utils/setAuthToken';
@@ -247,5 +247,66 @@ export const deleteConsumer = (id) => {
 export const consumerLoading = () => {
   return{
     type : CONSUMER_LOADING
+  }
+}
+
+///Add vehicle
+export const addVehicle = (VehicleData) => {
+  return dispatch => {
+    dispatch(getVehicleLoading());
+    axios.post('/api/addvehicle',VehicleData).then(res =>
+      dispatch({
+        type : ADD_VEHICLE,
+        payload : res.data
+      })
+    )
+    .catch(error =>
+      dispatch({
+        type : GET_VEHICLE_ERROR,
+        payload : error.response.data
+      })
+    )
+  }
+}
+//get vehicle
+export const getVehicle = (id) => {
+  return dispatch => {
+    axios.get(`/api/vehicle/${id}`).then(res =>
+      dispatch({
+        type : GET_VEHICLE,
+        payload : res.data
+      })
+    )
+    .catch(error =>
+       dispatch({
+         type : GET_VEHICLE_ERROR,
+         payload : error.response.data
+       })
+    )
+  }
+}
+
+// get vehicles
+export const getVehicles = () => {
+  return dispatch => {
+    dispatch(getVehicleLoading());
+    axios.get('/api/vehicles').then(res =>
+       dispatch({
+         type : GET_VEHICLES,
+         payload : res.data
+       })
+    )
+    .catch(error =>
+       dispatch({
+         type : GET_VEHICLE_ERROR,
+         payload : error.response.data
+       })
+    )
+  }
+}
+// get vehicle loading
+export const getVehicleLoading = () => {
+  return{
+    type : VEHICLE_LOADING
   }
 }

@@ -58,7 +58,7 @@ class VehicleList extends React.Component{
                 <td>{vehicle.wheelchairs}</td>
                 <td>{vehicle.flexSeats}</td>
                 <td>
-                  <button className="btn btn-default btn-xs">config route</button>
+                  <Link to={`/detail/${vehicle._id}`} className="btn btn-default btn-xs">Add consumers</Link>
                   <Link to={`/editvehicle/${vehicle._id}`} className="btn btn-default btn-xs">Edit</Link>
                   <button onClick={this.modelOpen} className="btn btn-danger btn-xs">Delete</button>
                   <Modal

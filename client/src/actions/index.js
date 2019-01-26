@@ -304,6 +304,7 @@ export const getVehicles = () => {
     )
   }
 }
+
 //Update vehicle
 export const updateVehicle = (vehicleData,id) => {
   return dispatch => {
@@ -328,6 +329,7 @@ export const updateVehicle = (vehicleData,id) => {
     )
   }
 }
+
 //Delete vehicle
 export const deleteVehicle = (id) => {
   return dispatch => {

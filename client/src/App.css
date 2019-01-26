@@ -10,3 +10,16 @@
   margin: 2px;
   border-radius: 100%;
 }
+
+.vehiclename span{
+   margin: 1px;
+}
+#map {
+       height: 100vh;
+     }
+     /* Optional: Makes the sample page fill the window. */
+     html, body {
+       height: 100%;
+       margin: 0;
+       padding: 0;
+     }

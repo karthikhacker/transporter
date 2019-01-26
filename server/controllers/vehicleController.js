@@ -23,8 +23,12 @@ exports.getVehicles = (req,res) => {
 }
 //get Vehicle
 exports.getVehicle = (req,res) => {
-  Vehicle.findById({_id : req.params.id}).then((consumer) => {
-       res.status(200).json(consumer);
+  Vehicle.findById({_id : req.params.id}).then((vehicle) => {
+    if(vehicle){
+      res.status(200).json(vehicle);
+    }else{
+      res.status(400).json(err)
+    }
   })
 }
 //Edit vehicle
@@ -34,7 +38,7 @@ exports.editVehicle = (req,res) => {
     seats : req.body.seats,
     flexSeats : req.body.flexSeats,
     wheelchairs : req.body.wheelchairs,
-    
+
   };
   let id = {_id : req.params.id};
   Vehicle.findOneAndUpdate(id,data,(err) => {
